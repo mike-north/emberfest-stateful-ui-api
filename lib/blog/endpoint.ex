@@ -37,6 +37,6 @@ defmodule Blog.Endpoint do
     store: :cookie,
     key: "_blog_key",
     signing_salt: "q+IuInQG"
-
+  plug CORSPlug
   plug Blog.Router
 end

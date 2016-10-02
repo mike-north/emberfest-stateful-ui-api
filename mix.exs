@@ -32,6 +32,7 @@ defmodule Blog.Mixfile do
   defp deps do
     [
      {:ja_serializer, "~> 0.11.0"},
+     {:cors_plug, "~> 1.1"},
      {:contentful, "~> 0.1.0"},
      {:phoenix, "~> 1.2.0"},
      {:phoenix_pubsub, "~> 1.0"},
