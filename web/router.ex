@@ -10,11 +10,11 @@ defmodule Blog.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json-api"]
   end
 
   scope "/", Blog do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :api # Use the default browser stack
 
     get "/posts", PostController, :index
     get "/postss", PostController, :indexx
