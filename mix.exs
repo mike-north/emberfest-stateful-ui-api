@@ -31,7 +31,7 @@ defmodule Blog.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-     {:ja_serializer, "~> 0.11.0"},
+     {:ja_serializer, "~> 0.11.1"},
      {:cors_plug, "~> 1.1"},
      {:contentful, "~> 0.1.0"},
      {:phoenix, "~> 1.2.0"},

@@ -7,18 +7,24 @@ defmodule Blog.PostController do
     })
   end
 
+  defp normalize_data(%{"sys" => %{"id" => id}} = data) do
+    Map.merge(data, %{
+      id: id
+    })
+  end
+
   defp normalize_data(data) do
+    IO.inspect data["fields"]["sys"]
     %{
       id: "123"
     }
   end
 
-  def index(conn, _params) do
+  defp index_base(conn, args) do
     data = Contentful.Delivery.entries(
       Application.get_env(:blog, :contentful_space_id),
       Application.get_env(:blog, :contentful_access_token),
-      %{"content_type" => "2wKn6yEnZewu2SCCkus4as"}
-    )
+      Map.merge(%{"content_type" => "2wKn6yEnZewu2SCCkus4as"}, args))
     |> Enum.map(fn x ->
       normalize_data(x)
     end)
@@ -27,15 +33,27 @@ defmodule Blog.PostController do
     |> render "index.json-api", data: data
     
   end
-
-  def indexx(conn, _params) do
-    
+  
+  def index(conn, %{"search" => search}) do
     conn
-    |> json Contentful.Delivery.entries(
+    |> index_base(%{
+        "content_type" => "2wKn6yEnZewu2SCCkus4as",
+        "fields.title[match]" => search})
+  end
+
+  def index(conn, params) do
+    conn
+    |> index_base(%{})
+  end
+
+  def show(conn, %{"id" => id}) do
+    data = Contentful.Delivery.entry(
       Application.get_env(:blog, :contentful_space_id),
       Application.get_env(:blog, :contentful_access_token),
-      %{"content_type" => "2wKn6yEnZewu2SCCkus4as"}
-    )
+      id)
+      |> normalize_data
 
+    conn
+    |> render "show.json-api", data: data
   end
 end
