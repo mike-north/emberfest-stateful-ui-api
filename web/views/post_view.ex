@@ -21,11 +21,11 @@ defmodule Blog.PostView do
   end
 
   def created_at(post) do
-    post["sys"]["createdAt"] <> "Z"
+    post["sys"]["createdAt"]
   end
 
   def updated_at(%{"sys" => %{"updatedAt" => updated_at}}) do
-    updated_at <> "Z"
+    updated_at
   end
 
   def author_photo_url(%{"fields" => %{"author" => [%{"fields" => %{"profilePhoto" => %{"fields" => %{"file" => %{"url" => url}}}}}]}} = post) do
