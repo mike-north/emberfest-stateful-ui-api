@@ -17,7 +17,7 @@ defmodule Blog.Router do
     pipe_through :api # Use the default browser stack
     resources "/comments", CommentController, except: [:new, :edit, :create]
     resources "/posts", PostController, only: [:index, :show] do
-      resources "/comment", CommentController, only: [:create]
+      resources "/comment", CommentController, only: [:create, :update]
     end
   end
 

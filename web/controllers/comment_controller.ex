@@ -37,7 +37,7 @@ defmodule Blog.CommentController do
     render(conn, "show.json-api", data: comment)
   end
 
-  def update(conn, %{"id" => id, "data" => data = %{"type" => "comment", "attributes" => _comment_params}}) do
+  def update(conn, %{"id" => id, "data" => data = %{"type" => "comments", "attributes" => _comment_params}}) do
     comment = Repo.get!(Comment, id)
     changeset = Comment.changeset(comment, Params.to_attributes(data))
 
